@@ -160,7 +160,7 @@ server <- function(input, output, session) {
   # listxlsx <- dir(path = "https://raw.githubusercontent.com/mranjos/Bots_Trader/master/Database/Over05HT/", pattern = "*.xlsx")
   
   for (k in 1:length(listxlsx)){
-    ldf[[k]] <-  read.xlsx(paste0("https://raw.githubusercontent.com/mranjos/Bots_Trader/master/",listxlsx[k]),na.strings=c(""," ","NA"))
+    ldf[[k]] <-  read.csv(paste0("https://raw.githubusercontent.com/mranjos/Bots_Trader/master/",listxlsx[k]),sep = ";")
     
     if (k == length(listxlsx)) {
       TB_OVER05 = do.call(rbind,ldf)

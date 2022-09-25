@@ -13,6 +13,7 @@ library(stringr)
 library(ggiraph)
 library(shinyBS)
 library(DT)
+library(httr)
 
 ui <- dashboardPage(skin = "green",
                     dashboardHeader(title = "StatBot",
@@ -147,13 +148,19 @@ server <- function(input, output, session) {
   ################# OVER 0.5 HT ################## 
   ##############################################.#
   
+  req <- GET("https://api.github.com/repos/mranjos/Bots_Trader/git/trees/main?recursive=1")
+  stop_for_status(req)
+  filelist <- unlist(lapply(content(req)$tree, "[", "path"), use.names = F)
+  listxlsx <- grep("Database/Over05HT/", filelist, value = TRUE, fixed = TRUE)
+  ldf = list()
+  
   #### Leitura dos dados ####
   # setwd("https://raw.githubusercontent.com/mranjos/Bots_Trader/master/Database/Over05HT/")
-  ldf <- list() # creates a list
-  listxlsx <- dir(path = "https://raw.githubusercontent.com/mranjos/Bots_Trader/master/Database/Over05HT/", pattern = "*.xlsx")
+  # ldf <- list() # creates a list
+  # listxlsx <- dir(path = "https://raw.githubusercontent.com/mranjos/Bots_Trader/master/Database/Over05HT/", pattern = "*.xlsx")
   
   for (k in 1:length(listxlsx)){
-    ldf[[k]] <-  read.xlsx(listxlsx[k],na.strings=c(""," ","NA"))
+    ldf[[k]] <-  read.xlsx(paste0("https://raw.githubusercontent.com/mranjos/Bots_Trader/master/",listxlsx[k]),na.strings=c(""," ","NA"))
     
     if (k == length(listxlsx)) {
       TB_OVER05 = do.call(rbind,ldf)

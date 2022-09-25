@@ -1,0 +1,14 @@
+name: statbot
+title: statbot
+username:
+account: mksoccer
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 7114525
+bundleId: 6336340
+url: https://mrapps.shinyapps.io/statbot/
+when: 1664132661.57001
+lastSyncTime: 1664132661.57001
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Database/Over05HT/extract-OVER 0.5 HT [1.48- 1.7]-from-01_08_2022-to-30_09_2022.xlsx|Database/Over05HT/extract-OVER 0.5 HT [1.71- 2]-from-01_08_2022-to-30_09_2022.xlsx|Database/Over05HT/extract-OVER 0.5 HT [2.02- 2.5]-from-01_08_2022-to-30_09_2022.xlsx

@@ -160,25 +160,23 @@ server <- function(input, output, session) {
   # listxlsx <- dir(path = "https://raw.githubusercontent.com/mranjos/Bots_Trader/master/Database/Over05HT/", pattern = "*.xlsx")
   
   for (k in 1:length(listxlsx)){
-    ldf[[k]] <-  read.csv(paste0("https://raw.githubusercontent.com/mranjos/Bots_Trader/master/",listxlsx[k]),sep = ";")
-    
+    ldf[[k]] <-  read.csv(paste0("https://raw.githubusercontent.com/mranjos/Bots_Trader/main/",listxlsx[k]),sep = ";")
     if (k == length(listxlsx)) {
       TB_OVER05 = do.call(rbind,ldf)
       rm(ldf,listxlsx,k)
     }
   }
   
-  TB_OVER05 = TB_OVER05 %>% select("Nome.do.Bot"  
-                                   ,"ID.da.ordem"
+  TB_OVER05 = TB_OVER05 %>% select("NomeBot"  
+                                   ,"IdOrdem"
                                    ,"Data"
                                    ,"Odd"
                                    ,"Stake"
-                                   ,"P/L"
-                                   ,"ID.do.Evento") %>% 
+                                   ,"PL") %>% 
     mutate("Data" = as.Date(Data),
-           "GR" = ifelse(TB_OVER05$`P/L` < 0, "Red","Green"),
-           "Resposta" = ifelse(TB_OVER05$`P/L` < 0, "0","1"),
-           "PLR" = ifelse(TB_OVER05$`P/L` > 0, TB_OVER05$`P/L`-(TB_OVER05$`P/L`*0.065),TB_OVER05$`P/L`))
+           "GR" = ifelse(TB_OVER05$PL < 0, "Red","Green"),
+           "Resposta" = ifelse(TB_OVER05$PL < 0, "0","1"),
+           "PLR" = ifelse(TB_OVER05$PL > 0, TB_OVER05$PL-(TB_OVER05$PL*0.065),TB_OVER05$PL))
   
   # RELAÇÃO GREEN E RED ----
   TB_GREEN_RED = TB_OVER05 %>% 
